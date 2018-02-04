@@ -1,4 +1,8 @@
 	// 封装事件函数
+	// 该函数期望传入三个参数
+	// 参数1.   要枚举的元素集合，
+	// 参数2.   要绑定的事件，
+	// 参数3.   要做的事情
 	function getNodelist(nodeList,eventType,fn){
 			if(arguments.length == 2){
 				fn = arguments[1]
@@ -17,22 +21,23 @@
 			// 		}
 			// 	}	
 			// }
-			for(var i = 0; i<a.length;i++){
+			for(var i = 0; i<nodeList.length;i++){
 				nodeList[i][eventType] = fn
 			}
 	}
 	// 获取节点方法
+	// 该函数期望传入一个带有字符串的（选择器 / 标签名）
 	function $(selector){
-	var str = selector.slice(1)
-	if(selector[0] == "."){
-		return document.getElementsByClassName(str)
-	}
-	if(selector[0] == "#"){
-		return document.getElementById(str)
-	}
-	if(selector[0] != "." && selector[0] != "#"){
-		return document.getElementsByTagName(selector)
-	}
+		var str = selector.slice(1)
+		if(selector[0] == "."){
+			return document.getElementsByClassName(str)
+		}
+		if(selector[0] == "#"){
+			return document.getElementById(str)
+		}
+		if(selector[0] != "." && selector[0] != "#"){
+			return document.getElementsByTagName(selector)
+		}
 	}
 	// 获取16进制颜色的方法
 	function getColor(){
@@ -45,6 +50,9 @@
 		return result	
 	}
 	// 返回insertAfter的节点方法
+	// 该函数期望传入两个参数,返回插入后的样子
+	// 参数1. newElement (要参入的元素节点)
+	// 参数2. obj (要插入的位置节点)
 	function insertAfter(newElement,obj){
 		var parent=obj.parentNode
 		if (parent.lastChild == obj) {
@@ -84,4 +92,23 @@
 		fen.innerHTML = m
 		miaoL.innerHTML = s
 	}
-		
+	// 重新实现nextSibling,直接寻找下一个兄弟元素节点
+	// 该函数期望传入一个node节点
+	// 找到距离他最近的下一个兄弟元素节点
+	function nextBrotherNode(brother){
+		while(brother.nextSibling.nodeType!=1){
+			brother = brother.nextSibling
+			if(brother.nextSibling.nodeType==1){
+				return brother.nextSibling
+			}
+		}
+	}
+	// 该函数期望传入一个node节点
+	// 找到该节点里面的所有子元素节点
+	function sunchild(sun){
+		for(var a=0;a<sun.childNodes.length;a++){
+			if(sun.childNodes[a].nodeType==1){
+				console.log(sun.childNodes[a])
+			}
+		}
+	}
